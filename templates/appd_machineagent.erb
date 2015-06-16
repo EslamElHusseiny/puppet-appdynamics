@@ -13,10 +13,8 @@ RETVAL=0
 
 JAVA="/usr/java/latest/bin/java"
 
-AGENT_HOME="/opt/appdynamics/machineagent"
+AGENT_HOME="<%= scope.lookupvar('appdynamics::install_location') %>"
 AGENT="$AGENT_HOME/machineagent.jar"
-
-AGENT_OPTIONS="$AGENT_OPTIONS -Xmx10m"
 
 AGENT_LOG="$AGENT_HOME/machineagent.log"
 
@@ -25,7 +23,7 @@ prog="AppDynamics Machine Agent"
 start() {
         # Start daemon.
         echo -n $"Starting $prog"
-        daemon --user=appdynamics "$JAVA $AGENT_OPTIONS -jar $AGENT > $AGENT_LOG 2>&1 &"
+        daemon "$JAVA -jar $AGENT > $AGENT_LOG 2>&1 &"
         RETVAL=$?
         [ $RETVAL -eq 0 ]
         return $RETVAL
