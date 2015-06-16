@@ -8,7 +8,7 @@ class appdynamics (
   $account_name,
   $account_access_key,
   $service_ensure = running,
-  $service_enable = false,
+  $service_enable = true,
   $application_name = undef,
   $tier_name = undef,
   $node_name = $::fqdn
