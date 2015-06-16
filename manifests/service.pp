@@ -5,7 +5,7 @@ class appdynamics::service {
     mode   => 755,
     owner  => root,
     group  => root,
-    source => "puppet:///modules/appdynamics/appd_machineagent"
+    content => template('appdynamics/appd_machineagent.erb')
   }
   ->
   service { "appd_machineagent":
