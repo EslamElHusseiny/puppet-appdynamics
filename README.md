@@ -10,7 +10,7 @@
 
 ##Overview
 
-This module installs and configures the AppDynamics MachineAgent.
+This module installs and configures the AppDynamics MachineAgent.  It can also install .zip Monitor Extensions.
 
 ##Setup and Usage
 
@@ -42,6 +42,15 @@ appdynamics::tier_name: 'My Tier'
 appdynamics::service_ensure: 'running'
 appdynamics::service_enable: 'true'
 ```
+
+To install a monitor extension you need to upload the .zip file to a URL that your puppet clients can access, then create a `monitors` Hiera Hash to define the URL and name of the .zip file.  Note that the Name of each Hash should match the directory of the extracted zip file ie. `CassandraMonitor`.
+```
+appdynamics::monitors:
+  CassandraMonitor:
+    source_url: 'https://s3-eu-west-1.amazonaws.com/cakesolutions-public-downloads'
+    zip_file: 'CassandraMonitor.zip'
+```
+
 
 ##Reference
 
@@ -96,6 +105,10 @@ Should the MachineAgent be `running` or `stopped`.
 
 Boolean - Should the MachineAgent service be enabled on boot `true` or `false`.
 
+####`java_opts`
+
+Java options that will be applied to the MachineAgent process, useful if you want to increase the maximum number of metrics.  `-Dappdynamics.agent.maxMetrics=10000`
+
 ####`application_name`
 
 The AppDynamics Application Name under which to register the host.
@@ -107,6 +120,10 @@ The AppDynamics Tier under which to register the host.
 ####`node_name`
 
 The name under which the node will be announced to AppDynamics.  Defaults to `$::fqdn`.
+
+####`monitors`
+
+A hash to define the extension monitors that you want to install.
 
 ##Limitations
 
