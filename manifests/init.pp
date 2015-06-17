@@ -9,7 +9,7 @@ class appdynamics (
   $account_access_key,
   $service_ensure = running,
   $service_enable = true,
-  $java_opts = ''
+  $java_opts = '',
   $application_name = '',
   $tier_name = '',
   $node_name = $::fqdn,
