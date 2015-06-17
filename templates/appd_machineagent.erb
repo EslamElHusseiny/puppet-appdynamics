@@ -23,7 +23,7 @@ prog="AppDynamics Machine Agent"
 start() {
         # Start daemon.
         echo -n $"Starting $prog"
-        daemon "$JAVA -jar $AGENT > $AGENT_LOG 2>&1 &"
+        daemon "$JAVA <%= scope.lookupvar('appdynamics::java_opts') %> -jar $AGENT > $AGENT_LOG 2>&1 &"
         RETVAL=$?
         [ $RETVAL -eq 0 ]
         return $RETVAL
