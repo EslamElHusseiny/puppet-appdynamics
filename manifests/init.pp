@@ -9,14 +9,18 @@ class appdynamics (
   $account_access_key,
   $service_ensure = running,
   $service_enable = true,
-  $application_name = undef,
-  $tier_name = undef,
-  $node_name = $::fqdn
+  $java_opts = ''
+  $application_name = '',
+  $tier_name = '',
+  $node_name = $::fqdn,
+  $monitors = {}
 ) {
 
   include appdynamics::install
   include appdynamics::config
   include appdynamics::service
+
+  create_resources ('appdynamics::resources::install_monitor', $monitors)
 
   Class['appdynamics::install'] ->
   Class['appdynamics::config'] ->
